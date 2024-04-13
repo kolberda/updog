@@ -117,6 +117,27 @@ def main():
         else:
             return redirect('/')
 
+    @app.route('/del/<path:path>')
+    @auth.login_required
+    def delfile(path):
+        # If there is a path parameter and it is valid
+        if path and is_valid_subpath(path, base_directory):
+            # Take off the trailing '/'
+            path = os.path.normpath(path)
+            requested_path = os.path.join(base_directory, path)
+
+            # If directory
+            if os.path.isdir(requested_path):
+                back = get_parent_directory(requested_path, base_directory)
+                is_subdirectory = True
+
+            # If file
+            elif os.path.isfile(requested_path):
+                print(path)
+                os.remove(path)
+        return redirect('/')
+
+
     #############################
     # File Upload Functionality #
     #############################

@@ -69,6 +69,7 @@
                 <th>Size</th>
                 <th>Last Modified</th>
                 <th></th> <!-- View file -->
+                <th></th> <!-- Delete file -->
             </tr>
             </thead>
             <tbody>
@@ -93,6 +94,11 @@
                 <td> <!-- View file -->
                     {% if not file.is_dir %}
                     <a href="/{{ file.rel_path }}?view">View in browser</a>
+                    {% endif %}
+                </td>
+                <td> <!-- View file -->
+                    {% if not file.is_dir %}
+                    <a href="/del/{{ file.rel_path }}">Delete</a>
                     {% endif %}
                 </td>
             </tr>
