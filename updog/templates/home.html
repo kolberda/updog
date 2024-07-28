@@ -26,6 +26,7 @@
         <div class="heading_title_p">
             <h2>Directory: {{ directory }}</h2>
         </div>
+
     </header>
 
     <!-- ----- Upload Form ----- -->
@@ -48,7 +49,10 @@
                 </button>
             </p>
         </form>
+
+        </p>
     </div>
+
 
     {% if is_subdirectory %}
     <section class="backBtn_p">
@@ -110,7 +114,13 @@
     <footer>
         <p>
             updog v{{ version }}
+            
         </p>
+        <p>
+            <a href="/delall">Delete all files and folders in this directory</a>
+        </p>
+
+
     </footer>
 
 </div> <!-- end class conn -->

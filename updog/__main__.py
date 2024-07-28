@@ -1,6 +1,7 @@
 import os
 import signal
 import argparse
+import shutil
 
 from flask import Flask, render_template, send_file, redirect, request, send_from_directory, url_for, abort
 from flask_httpauth import HTTPBasicAuth
@@ -135,6 +136,21 @@ def main():
             elif os.path.isfile(requested_path):
                 print(path)
                 os.remove(path)
+        return redirect('/')
+
+    @app.route('/delall', methods=['GET'])
+    @auth.login_required
+    def delfolder():
+        folder = base_directory
+        for filename in os.listdir(folder):
+            file_path = os.path.join(folder, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
         return redirect('/')
 
 
